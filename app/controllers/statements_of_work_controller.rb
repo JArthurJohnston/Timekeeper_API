@@ -1,0 +1,2 @@
+class StatementsOfWorkController < ApplicationController
+end
