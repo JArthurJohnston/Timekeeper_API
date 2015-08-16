@@ -1,9 +1,6 @@
-require 'test_helper'
+require_relative 'model_test_case'
 
-class ProjectTest < ActiveSupport::TestCase
-  # test 'the truth' do
-  #   assert true
-  # end
+class ProjectTest < ModelTestCase
 
   def setup
     client = 'Pettersons'
@@ -81,6 +78,10 @@ class ProjectTest < ActiveSupport::TestCase
 
     assert_equal sow.id, project.statement_of_work_id
     assert_equal sow, project.statement_of_work
+  end
+
+  test 'gets stuff from statement of work' do
+    fail('write me!!!!')
   end
 
 end

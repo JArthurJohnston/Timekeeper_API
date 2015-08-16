@@ -26,7 +26,7 @@ class Activity < ActiveRecord::Base
     super attributes, options
   end
 
-  def indexDisplayString
+  def display_string
     return "%{projectNumber} : %{start} to %{end}" % {:projectNumber => self.story_card.projectNumber,
                                                       :start => time_string_for(self.start_time),
                                                       :end => time_string_for(self.end_time)}

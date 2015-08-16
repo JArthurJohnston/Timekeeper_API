@@ -20,7 +20,7 @@ module ActivityCSV
 
   def client_columns
     return "%{name},%{code}," % {:name => self.project.client,
-                                 :code => self.project.invoiceNumber}
+                                 :code => self.project.invoice_number}
   end
 
   def total_string
