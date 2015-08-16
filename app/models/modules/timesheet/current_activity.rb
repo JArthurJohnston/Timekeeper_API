@@ -1,7 +1,7 @@
 module CurrentActivity
 
   def current_activity
-    return Activity.find(self.current_activity_id)
+    return Activity.find_by(id: self.current_activity_id)
   end
 
   def current_project

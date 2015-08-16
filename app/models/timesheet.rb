@@ -4,30 +4,31 @@ require_relative '../../app/models/modules/date_time_helper'
 
 class Timesheet < ActiveRecord::Base
   include AttributeHandler,
-          CurrentActivity,
-          DateTimeHelper
-  has_many :activities, -> { order('startTime ASC') }
+          CurrentActivity
+  extend DateTimeHelper
+
+  has_many :activities, -> { order('start_time ASC') }
   belongs_to :user
 
   class << self
     def new_starting aStartDate
-      return self.new(startDate: aStartDate, throughDate: next_friday_from(aStartDate))
+      return self.new(start_date: aStartDate, through_date: next_friday_from(aStartDate))
     end
   end
 
-  def addActivity anActivity
+  def add_activity anActivity
     unless self.current_activity_id.nil?
-      self.current_activity.set_end_time anActivity.startTime
+      self.current_activity.set_end_time anActivity.start_time
     end
     anActivity.set_timesheet self
     setAttribute :current_activity_id, anActivity.id
   end
 
   def days
-    currentDate = self.startDate.to_datetime.new_offset(0)
-    throughDate = self.throughDate.to_datetime.new_offset(0)
+    currentDate = self.start_date.to_datetime.new_offset(0)
+    through_date = self.through_date.to_datetime.new_offset(0)
     theDays = [self.on(currentDate)]
-    while currentDate < throughDate
+    while currentDate < through_date
       currentDate += 1.day
       theDays.push(self.on(currentDate.new_offset(0)))
     end
@@ -64,20 +65,5 @@ class Timesheet < ActiveRecord::Base
     end
     super
   end
-
-  def activity_updated an_activity
-    self.activities.each do
-    |each_activity|
-      unless an_activity == each_activity
-        if an_activity.overlaps? each_activity
-          each_activity.update_attributes(:startTime => an_activity.endTime)
-          break
-        end
-      end
-    end
-  end
-
-  private :dateStringFromDate,
-          :getAttribute
 
 end

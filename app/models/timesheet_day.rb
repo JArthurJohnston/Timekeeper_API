@@ -9,7 +9,7 @@ class TimesheetDay
   def activities
      activities = @timesheet.activities
      return activities.select { |e|
-       daysAreTheSame e.startTime.to_datetime.new_offset(0), @date.to_datetime.new_offset(0)
+       daysAreTheSame e.start_time.to_datetime.new_offset(0), @date.to_datetime.new_offset(0)
      }
   end
 

@@ -47,7 +47,7 @@ class StoryCardLineItem
 
   def client_columns
     return "%{name},%{code}," % {:name => @project.client,
-                                 :code => @project.invoiceNumber}
+                                 :code => @project.invoice_number}
   end
 
   def total_string

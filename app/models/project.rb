@@ -2,7 +2,7 @@ require_relative '../../app/models/modules/common_story_cards'
 
 class Project < ActiveRecord::Base
   has_many :story_cards
-  has_one :statement_of_work
+  belongs_to :statement_of_work
   include CommonStoryCards
 
   def indexDisplayString
@@ -11,5 +11,13 @@ class Project < ActiveRecord::Base
                                          :invoiceId => self.invoiceNumber}
   end
 
+
+  def invoice_number
+    return self.statement_of_work.number
+  end
+
+  def client
+    return self.statement_of_work.client
+  end
 
 end
