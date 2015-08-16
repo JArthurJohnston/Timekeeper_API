@@ -17,20 +17,18 @@ class StatementOfWorkTest < ActiveSupport::TestCase
   end
 
   test 'sow fields' do
+    user = User.create
     sow_number = 'SOW03'
     po_number = 'SUBSOW3344'
     client_name = 'Acme Co'
     nickname = 'the name of nick'
-    sow = StatementOfWork.create(number: sow_number, purchase_order_number: po_number, client: client_name, nickname: nickname)
+    sow = StatementOfWork.create(user_id: user.id, number: sow_number, purchase_order_number: po_number, client: client_name, nickname: nickname)
 
     assert_equal sow_number, sow.number
     assert_equal po_number, sow.purchase_order_number
     assert_equal client_name, sow.client
     assert_equal nickname, sow.nickname
+    assert_equal user, sow.user
   end
 
-  test 'display name' do
-    sow = StatementOfWork.create(nickname: 'Steve', client: 'Jobs', number: 'SOW55')
-    assert_equal 'SOW55 : Jobs : Steve', sow.display_name
-  end
 end

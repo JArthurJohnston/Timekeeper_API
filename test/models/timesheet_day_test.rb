@@ -5,7 +5,7 @@ class TimesheetDayTest < ActiveSupport::TestCase
   @@base_date = DateTime.new(2015, 1, 1).new_offset(0)
 
   def setup
-    @timesheet = Timesheet.create(startDate: @@base_date, throughDate: @@base_date)
+    @timesheet = Timesheet.create(start_date: @@base_date, through_date: @@base_date)
   end
 
   test 'timesheet days from timesheet' do
@@ -19,10 +19,10 @@ class TimesheetDayTest < ActiveSupport::TestCase
 
     timesheetDate = DateTime.new(2015, 1, 1)
 
-    act1 = Activity.create(timesheet_id: @timesheet.id, startTime: timesheetDate)
-    act2 = Activity.create(timesheet_id: @timesheet.id, startTime: timesheetDate)
-    act3 = Activity.create(timesheet_id: @timesheet.id, startTime: timesheetDate)
-    act4 = Activity.create(timesheet_id: @timesheet.id, startTime: DateTime.new(2015, 1, 2))
+    act1 = Activity.create(timesheet_id: @timesheet.id, start_time: timesheetDate)
+    act2 = Activity.create(timesheet_id: @timesheet.id, start_time: timesheetDate)
+    act3 = Activity.create(timesheet_id: @timesheet.id, start_time: timesheetDate)
+    act4 = Activity.create(timesheet_id: @timesheet.id, start_time: DateTime.new(2015, 1, 2))
 
     timesheetDay = TimesheetDay.new(@timesheet, timesheetDate)
     assert_equal 3, timesheetDay.activities.size

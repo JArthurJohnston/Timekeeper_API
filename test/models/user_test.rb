@@ -1,72 +1,31 @@
-require 'test_helper'
+require_relative 'model_test_case'
 
-class UserTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+class UserTest < ModelTestCase
 
-  def setup
-    @user = User.new(name: 'ME', email: 'me@mine.com', password:'totallySecure',
-              password: 'foobar', password_confirmation: 'foobar')
+  test 'user name' do
+    expected_name = 'bob loblaw'
+    user = User.create(name: expected_name)
+
+    assert_equal expected_name, user.name
   end
 
-  test 'User is valid' do
-    assert @user.valid?
+  test 'user has timehseets, statements of work and activities' do
+    user = User.create
+    assert_empty user.statements_of_work
+    assert_empty user.timesheets
+    assert_empty user.activities
+
+    sow = StatementOfWork.create(user_id: user.id)
+    timesheet = Timesheet.create(user_id: user.id)
+    activity = Activity.create(user_id: user.id)
+
+    assert_equal 1, user.statements_of_work.size
+    assert_equal 1, user.timesheets.size
+    assert_equal 1, user.activities.size
+
+    assert user.statements_of_work.include? sow
+    assert user.timesheets.include? timesheet
+    assert user.activities.include? activity
   end
-
-  test 'fields are required' do
-    @user.name= '  '
-    assert_not @user.valid?
-    @user.name = 'ImValidAgain!'
-    assert @user.valid?
-
-    @user.password= '  '
-    assert_not @user.valid?
-    @user.password= 'foobar'
-    assert @user.valid?
-
-    @user.email= '  '
-    assert_not @user.valid?
-    @user.email= 'ImValidAgain@somethign.com'
-    assert @user.valid?
-  end
-
-  test 'checks email validity' do
-    @user.email = '@something.com'
-    assert_not @user.valid?
-
-    @user.email = 'mike.com'
-    assert_not @user.valid?
-
-    @user.email = 'mike@smith.com'
-    assert @user.valid?
-  end
-
-  test 'passwords should be valid' do
-    passwordIsValid '12345', false
-    passwordIsValid '        ', false
-    passwordIsValid 'moreThanSixCharacters', true
-  end
-
-  def passwordIsValid testPassword, validity
-    @user.password_confirmation= testPassword
-    @user.password= testPassword
-    assert_equal validity, @user.valid?
-  end
-
-  # test 'email should be unique' do
-  #   emailThatShouldBeUnique = 'some@email.unique.com'
-  #   @user.email= emailThatShouldBeUnique
-  #   assert @user.valid?
-  #
-  #   someOtherUser = @user.dup
-  #   someOtherUser.email= emailThatShouldBeUnique
-  #   someOtherUser.save
-  #   assert_not someOtherUser.valid?, 'this user shouldnt be valid'
-  #
-  #   someOtherUser = User.new(name: 'ME', email: emailThatShouldBeUnique.upcase, password:'totallySecure')
-  #   someOtherUser.save
-  #   assert_not someOtherUser.valid?, 'uppercase emial: this user shouldnt be valid'
-  # end
 
 end

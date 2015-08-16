@@ -153,25 +153,6 @@ class TimesheetTest < ModelTestCase
     timesheet.current_project
   end
 
-  test 'to csv' do
-    timesheet = Timesheet.create(start_date: time_on(1, 1), through_date: time_on(5, 5))
-    sow = StatementOfWork.create(number: 'ASDF123', purchase_order_number: 'QWER234', client: 'Mickey')
-    project = Project.create(name:'Mouse', statement_of_work_id: sow.id)
-    story1 = StoryCard.create(title: 'Story 1', number: 'ST1', project_id: project.id)
-    start_date = DateTime.new(2015, 7, 1, 5, 0, 0).new_offset(0)
-    end_date = DateTime.new(2015, 7, 1, 5, 30, 0).new_offset(0)
-    Activity.create(story_card_id: story1.id, start_time: start_date, end_time: end_date, timesheet_id: timesheet.id)
-    start_date = DateTime.new(2015, 7, 1, 5, 30, 0).new_offset(0)
-    end_date = DateTime.new(2015, 7, 1, 6, 30, 0).new_offset(0)
-    Activity.create(story_card_id: story1.id, start_time: start_date, end_time: end_date, timesheet_id: timesheet.id)
-
-    expectedCSV = "Mickey,ASDF123,Mouse DEV - ST1,Y,Y,,,,,0.5,,,0.5,0.5,0.5\n" +
-        "Mickey,ASDF123,Mouse DEV - ST1,Y,Y,,,,,1.0,,,1.0,1.0,1.0\n"
-    actualCSV = timesheet.to_csv
-
-    assert_equal expectedCSV, actualCSV
-  end
-
   test 'activities are ordered by start time' do
     timesheet = Timesheet.create
     act1 = Activity.create(timesheet_id: timesheet.id, start_time: time_on(5, 15))
@@ -221,6 +202,13 @@ class TimesheetTest < ModelTestCase
     assert_raises ActiveRecord::RecordNotFound do
       assert_nil Timesheet.find(timesheet_id)
     end
+  end
+
+  test 'timesheet belongs to user' do
+    user = User.create
+    timesheet = Timesheet.create(user_id: user.id)
+
+    assert_equal user, timesheet.user
   end
 
 

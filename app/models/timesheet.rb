@@ -39,14 +39,6 @@ class Timesheet < ActiveRecord::Base
     return TimesheetDay.new(self, aDate)
   end
 
-  def to_csv
-    csvString = ''
-    self.story_cards.each do |each_card|
-      csvString.concat(StoryCardLineItem.new(each_card, self).to_csv).concat("\n")
-    end
-    return csvString
-  end
-
   def story_cards
     cards = []
     self.activities.each do |each_activity|

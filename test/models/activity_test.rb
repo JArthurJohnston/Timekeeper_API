@@ -8,13 +8,13 @@ class ActivityTest < ModelTestCase
 
     activity = Activity.new(start_time: expectedStart, end_time: expectedEnd)
 
-    assert_equal expectedStart.toNearest15, activity.start_time
-    assert_equal expectedEnd.toNearest15, activity.end_time
+    assert_equal expectedStart.rounded_to_fifteen_min, activity.start_time
+    assert_equal expectedEnd.rounded_to_fifteen_min, activity.end_time
   end
 
   test 'input and retrieval from database' do
-    expectedStart = DateTime.new(2015, 1, 1, 2, 2, 2).toNearest15
-    expectedEnd = DateTime.new(2015, 1, 1, 3, 3, 3).toNearest15
+    expectedStart = DateTime.new(2015, 1, 1, 2, 2, 2).rounded_to_fifteen_min
+    expectedEnd = DateTime.new(2015, 1, 1, 3, 3, 3).rounded_to_fifteen_min
 
     activity = Activity.new(start_time: expectedStart, end_time: expectedEnd)
     activity.save
@@ -39,7 +39,7 @@ class ActivityTest < ModelTestCase
   end
 
   test 'activity starts now' do
-    now = DateTime.now.toNearest15
+    now = DateTime.now.rounded_to_fifteen_min
     activity = Activity.now
 
     assertDatesAreClose now, activity.start_time
@@ -72,8 +72,8 @@ class ActivityTest < ModelTestCase
   end
 
   test 'handles initialize without start or end times' do
-    expectedStart = DateTime.new(2015, 1, 1, 2, 2, 2).toNearest15
-    expectedEnd = DateTime.new(2015, 1, 1, 3, 3, 3).toNearest15
+    expectedStart = DateTime.new(2015, 1, 1, 2, 2, 2).rounded_to_fifteen_min
+    expectedEnd = DateTime.new(2015, 1, 1, 3, 3, 3).rounded_to_fifteen_min
 
     activity = Activity.new(start_time: expectedStart)
     assert_equal expectedStart, activity.start_time
@@ -82,22 +82,6 @@ class ActivityTest < ModelTestCase
     activity = Activity.new(end_time: expectedEnd)
     assert_equal expectedEnd, activity.end_time
     assert_nil activity.start_time
-  end
-
-  test 'index display string' do
-    start_time = time_on 9, 15
-    end_time = time_on 13, 30
-    project = Project.create(name: 'Green Lantern')
-    storyCard = StoryCard.new(project: project, number: '2814')
-    storyCard.save
-
-    activity = Activity.new start_time: start_time, end_time: end_time, story_card_id: storyCard.id
-
-    assert_equal 'Green Lantern : 2814 : 09:15 to 01:30', activity.display_string
-
-    activity.end_time= nil
-
-    assert_equal 'Green Lantern : 2814 : 09:15 to --', activity.display_string
   end
 
   test 'activity calculates total time' do
@@ -128,29 +112,6 @@ class ActivityTest < ModelTestCase
     activity = Activity.create(story_card_id: storyCard.id)
 
     assert_equal(project, activity.project)
-  end
-
-  test 'to csv ' do
-    sow = StatementOfWork.create(client: 'Mickey', number: 'SOW123', purchase_order_number: 'ASDF00234')
-    project = Project.create(name: 'Mouse', statement_of_work_id: sow.id)
-    story = StoryCard.create(project_id: project.id, number: '002')
-    start_date = DateTime.new(2015, 6, 29, 5, 0, 0).new_offset(0)
-    end_date = DateTime.new(2015, 6, 29, 5, 15, 0).new_offset(0)
-    activity = Activity.create(story_card_id: story.id, start_time: start_date, end_time: end_date)
-
-    expectedCSV = 'Mickey,SOW123,Mouse DEV - 002,Y,Y,,,0.25,,,,,0.25,0.25,0.25'
-    actualCSV = activity.to_csv
-
-    assert_equal expectedCSV, actualCSV
-
-    start_date = DateTime.new(2015, 7, 1, 5, 0, 0).new_offset(0)
-    end_date = DateTime.new(2015, 7, 1, 5, 30, 0).new_offset(0)
-    activity = Activity.create(story_card_id: story.id, start_time: start_date, end_time: end_date)
-
-    expectedCSV = 'Mickey,SOW123,Mouse DEV - 002,Y,Y,,,,,0.5,,,0.5,0.5,0.5'
-    actualCSV = activity.to_csv
-
-    assert_equal expectedCSV, actualCSV
   end
 
   test 'deleting an activity will clear the current activity id if the activity is current' do

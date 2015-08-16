@@ -84,8 +84,8 @@ class DateRangeTest < ModelTestCase
   end
 
   test 'range returns min or max when start and finish are nil' do
-    assert_equal DateTime.new(1,1,1, 0, 0, 0), DateRange.MIN_DATE
-    assert_equal DateTime.new(9999,12,31, 24, 59, 99), DateRange.MAX_DATE
+    assert_equal DateTime.new(1,1,1, 0, 0, 0), DateRange::MIN_DATE
+    assert_equal DateTime.new(9999,12,31, 0, 0, 0), DateRange::MAX_DATE
 
     finish = time_on(8, 45)
     start = time_on(5, 45)

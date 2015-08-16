@@ -1,10 +1,8 @@
 require_relative 'date_range'
-require_relative '../models/modules/activity/activity_csv'
 require_relative '../../app/models/modules/date_time_helper'
 
 class Activity < ActiveRecord::Base
-  include DateTimeHelper,
-          ActivityCSV
+  include DateTimeHelper
 
   belongs_to :story_card
   belongs_to :timesheet
@@ -24,12 +22,6 @@ class Activity < ActiveRecord::Base
       if_not_nil_round attributes, :end_time
     end
     super attributes, options
-  end
-
-  def display_string
-    return "%{projectNumber} : %{start} to %{end}" % {:projectNumber => self.story_card.projectNumber,
-                                                      :start => time_string_for(self.start_time),
-                                                      :end => time_string_for(self.end_time)}
   end
 
   def range
@@ -83,7 +75,7 @@ class Activity < ActiveRecord::Base
 
     def if_not_nil_round attributes, aSymbol
       unless attributes[aSymbol].nil?
-        attributes[aSymbol] = attributes[aSymbol].toNearest15
+        attributes[aSymbol] = attributes[aSymbol].rounded_to_fifteen_min
       end
     end
 
