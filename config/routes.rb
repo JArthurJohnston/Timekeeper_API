@@ -53,4 +53,13 @@ Rails.application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
+
+  resources :users, :defaults => {:format => 'json'} do
+    resources :timesheets, :statements_of_work, :activities
+  end
+
+  resources :projects, :defaults => {:format => 'json'} do
+    resources :story_cards
+  end
+
 end

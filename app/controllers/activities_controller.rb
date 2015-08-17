@@ -4,4 +4,8 @@ class ActivitiesController < ApplicationController
     return Activity
   end
 
+  def find_all params
+    return Activity.where(user_id: params[:user_id])
+  end
+
 end

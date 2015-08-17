@@ -4,21 +4,17 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   def index
-    @models = model_class.all
-  end
-
-  def new
-    @new_model = model_class.new
-    # respond_with(@new_model) doesnt make sense here. show doesnt touch the model, just serves up a form
+    @models = find_all params
+    render json: @models
   end
 
   def create
     @new_model = model_class.create(model_params)
   end
 
-  def edit
-    @model = find_model(params)
-    respond_with(@model)
+  def show
+    @model = find_model params
+    render json: @model
   end
 
   def update
@@ -28,11 +24,6 @@ class ApplicationController < ActionController::Base
 
   def destroy
     @model = find_model(params).destroy
-  end
-
-  def show
-    @model = find_model params
-    respond_with(@model)
   end
 
   private
@@ -45,7 +36,7 @@ class ApplicationController < ActionController::Base
       raise 'subclass responsibility'
     end
 
-    def find_all
+    def find_all params
       return model_class.all
     end
 
