@@ -8,4 +8,8 @@ class ActivitiesController < ApplicationController
     return Activity.where(user_id: params[:user_id])
   end
 
+  def permitted_parameters
+    return :start_time, :end_time, :timesheet_id, :story_card_id, :user_id
+  end
+
 end

@@ -35,4 +35,12 @@ class ActivitiesControllerTest < ActionController::TestCase
   #   assert_equal '{}', @response.body
   end
 
+  test 'model class' do
+    assert_equal Activity, @controller.model_class
+  end
+
+  test 'permitted parameters' do
+    assert_equal [:start_time, :end_time, :timesheet_id, :story_card_id, :user_id], @controller.permitted_parameters
+  end
+
 end

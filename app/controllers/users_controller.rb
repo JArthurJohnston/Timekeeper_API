@@ -4,9 +4,8 @@ class UsersController < ApplicationController
     return User
   end
 
-  def model_params
-    user_params = ActionController::Parameters.new(JSON.parse(params.require(:user)))
-    return user_params.permit(:name)
+  def permitted_parameters
+    return :name
   end
 
 end

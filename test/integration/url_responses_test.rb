@@ -25,5 +25,4 @@ class UrlResponsesTest < ActionDispatch::IntegrationTest
     assert_equal [@timesheet1, @timesheet2].to_json, @response.body
   end
 
-
 end
