@@ -1,0 +1,22 @@
+<html>
+<body>
+    <input type="text" id="new-user-name-field"></input>
+	<button onclick="createUserRequest()">Add User</button>
+	<script type="text/javascript">
+		function createUserRequest(){
+            var userName = document.getElementById("new-user-name-field").value;
+            var newUser = {name: userName};
+			xhr = new XMLHttpRequest();
+            
+			xhr.open("POST", "http://localhost:3000/users/", true);
+			xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhr.onreadystatechange = function(){
+                alert(xhr.status);
+                alert(xhr.responseText);
+            }
+            
+            xhr.send('user=' + JSON.stringify(newUser));
+		}
+	</script>
+</body>
+</html>
