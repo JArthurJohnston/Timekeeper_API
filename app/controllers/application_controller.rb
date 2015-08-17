@@ -26,6 +26,7 @@ class ApplicationController < ActionController::Base
 
   def destroy
     @model = find_model(params).destroy
+    render :nothing => true, :status => 200
   end
 
   private
