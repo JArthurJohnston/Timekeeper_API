@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
-  protect_from_forgery with: :exception
+  protect_from_forgery with: :null_session
 
   def index
     @models = find_all params
@@ -10,6 +10,7 @@ class ApplicationController < ActionController::Base
 
   def create
     @new_model = model_class.create(model_params)
+    render json: @new_model
   end
 
   def show
@@ -20,6 +21,7 @@ class ApplicationController < ActionController::Base
   def update
     @model = find_model(params)
     @model.update_attributes(model_params)
+    render json: @model
   end
 
   def destroy
