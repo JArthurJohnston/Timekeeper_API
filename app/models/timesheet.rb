@@ -14,6 +14,10 @@ class Timesheet < ActiveRecord::Base
     def new_starting aStartDate
       return self.new(start_date: aStartDate, through_date: next_friday_from(aStartDate))
     end
+
+    def create_starting start_date, user_id
+      return self.create(start_date: start_date, through_date: next_friday_from(start_date), user_id: user_id)
+    end
   end
 
   def add_activity anActivity

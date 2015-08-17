@@ -17,6 +17,18 @@ class TimesheetTest < ModelTestCase
     assert_equal through_date, timesheet.through_date
   end
 
+  test 'create_starting' do
+    start_date = DateTime.new(2015, 6, 8)
+    expected_end_date = DateTime.new(2015, 6, 12)
+    user = User.create
+
+    timesheet = Timesheet.create_starting start_date, user.id
+
+    assert_equal start_date, timesheet.start_date
+    assert_equal expected_end_date, timesheet.through_date
+    assert_equal user, timesheet.user
+  end
+
   test 'newStarting starts on given date, ends that friday' do
     start_date = DateTime.new(2015, 6, 8)
     expectedEndDate = DateTime.new(2015, 6, 12)
