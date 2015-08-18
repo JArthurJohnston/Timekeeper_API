@@ -1,0 +1,37 @@
+                   Prefix Verb   URI Pattern                                                       Controller#Action
+  user_statements_of_work GET    /users/:user_id/statements_of_work(.:format)                      statements_of_work#index
+                          POST   /users/:user_id/statements_of_work(.:format)                      statements_of_work#create
+   user_statement_of_work GET    /users/:user_id/statements_of_work/:id(.:format)                  statements_of_work#show
+                          PATCH  /users/:user_id/statements_of_work/:id(.:format)                  statements_of_work#update
+                          PUT    /users/:user_id/statements_of_work/:id(.:format)                  statements_of_work#update
+                          DELETE /users/:user_id/statements_of_work/:id(.:format)                  statements_of_work#destroy
+user_timesheet_activities GET    /users/:user_id/timesheets/:timesheet_id/activities(.:format)     activities#index
+                          POST   /users/:user_id/timesheets/:timesheet_id/activities(.:format)     activities#create
+  user_timesheet_activity GET    /users/:user_id/timesheets/:timesheet_id/activities/:id(.:format) activities#show
+                          PATCH  /users/:user_id/timesheets/:timesheet_id/activities/:id(.:format) activities#update
+                          PUT    /users/:user_id/timesheets/:timesheet_id/activities/:id(.:format) activities#update
+                          DELETE /users/:user_id/timesheets/:timesheet_id/activities/:id(.:format) activities#destroy
+          user_timesheets GET    /users/:user_id/timesheets(.:format)                              timesheets#index
+                          POST   /users/:user_id/timesheets(.:format)                              timesheets#create
+           user_timesheet GET    /users/:user_id/timesheets/:id(.:format)                          timesheets#show
+                          PATCH  /users/:user_id/timesheets/:id(.:format)                          timesheets#update
+                          PUT    /users/:user_id/timesheets/:id(.:format)                          timesheets#update
+                          DELETE /users/:user_id/timesheets/:id(.:format)                          timesheets#destroy
+                    users GET    /users(.:format)                                                  users#index
+                          POST   /users(.:format)                                                  users#create
+                     user GET    /users/:id(.:format)                                              users#show
+                          PATCH  /users/:id(.:format)                                              users#update
+                          PUT    /users/:id(.:format)                                              users#update
+                          DELETE /users/:id(.:format)                                              users#destroy
+      project_story_cards GET    /projects/:project_id/story_cards(.:format)                       story_cards#index
+                          POST   /projects/:project_id/story_cards(.:format)                       story_cards#create
+       project_story_card GET    /projects/:project_id/story_cards/:id(.:format)                   story_cards#show
+                          PATCH  /projects/:project_id/story_cards/:id(.:format)                   story_cards#update
+                          PUT    /projects/:project_id/story_cards/:id(.:format)                   story_cards#update
+                          DELETE /projects/:project_id/story_cards/:id(.:format)                   story_cards#destroy
+                 projects GET    /projects(.:format)                                               projects#index
+                          POST   /projects(.:format)                                               projects#create
+                  project GET    /projects/:id(.:format)                                           projects#show
+                          PATCH  /projects/:id(.:format)                                           projects#update
+                          PUT    /projects/:id(.:format)                                           projects#update
+                          DELETE /projects/:id(.:format)                                           projects#destroy

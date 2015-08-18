@@ -1,14 +1,11 @@
 require 'test_helper'
+require_relative 'setup_integration_models'
 
 class UrlResponsesTest < ActionDispatch::IntegrationTest
+  include SetupIntegrationModels
 
   def setup
-    @user1 = User.create(name: 'John Doe')
-    @user2 = User.create(name: 'Jane Doe')
-
-    @timesheet1 = Timesheet.create(start_date: DateTime.new_starting(2015, 1,1), user_id: @user1.id)
-    @timesheet2 = Timesheet.create(start_date: DateTime.new_starting(2015, 1,1), user_id: @user1.id)
-    @timesheet3 = Timesheet.create(start_date: DateTime.new_starting(2015, 1,1), user_id: @user2.id)
+    setup_models
   end
 
   test 'user index' do

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="dataSourceStorage">
+  <data-source name="Rails Timekeeper_API: development" uuid="991cc86f-3468-4063-9a0d-49be73472810">
+    <database-info product="" version="" jdbc-version="" driver-name="" driver-version=""/>
+  </data-source>
+  <data-source name="Rails Timekeeper_API: test" uuid="e2bf44b9-46fe-401c-94c7-a52bca4ffc85">
+    <database-info product="" version="" jdbc-version="" driver-name="" driver-version=""/>
+  </data-source>
+</component>

@@ -54,12 +54,17 @@ Rails.application.routes.draw do
   #     resources :products
   #   end
 
-  resources :users, :defaults => {:format => 'json'} do
-    resources :timesheets, :statements_of_work, :activities
+  allowed_actions = [:index, :create, :show, :update, :destroy]
+
+  resources :users, only: allowed_actions do
+    resources :statements_of_work, only: allowed_actions
+    resources :timesheets, only: allowed_actions do
+      resources :activities, only: allowed_actions
+    end
   end
 
-  resources :projects, :defaults => {:format => 'json'} do
-    resources :story_cards
+  resources :projects, only: allowed_actions  do
+    resources :story_cards, only: allowed_actions
   end
 
 end

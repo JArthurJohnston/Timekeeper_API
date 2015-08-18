@@ -5,7 +5,7 @@ class ActivitiesController < ApplicationController
   end
 
   def find_all params
-    return Activity.where(user_id: params[:user_id])
+    return Activity.where(timesheet_id: params[:timesheet_id])
   end
 
   def permitted_parameters
