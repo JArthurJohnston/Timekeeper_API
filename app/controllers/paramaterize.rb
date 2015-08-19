@@ -1,7 +1,7 @@
 module Paramaterize
 
   def required_parameter
-    return self.model_class.name.downcase.to_sym
+    return self.model_class.name.parameterize.to_sym
   end
 
   def permitted_parameters
@@ -9,7 +9,7 @@ module Paramaterize
   end
 
   def model_parameters
-    return ActionController::Parameters.new(JSON.parse(params.require(:user))).permit(permitted_parameters)
+    return params.require(required_parameter).permit(permitted_parameters)
   end
 
 end

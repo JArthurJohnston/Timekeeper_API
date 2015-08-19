@@ -22,8 +22,8 @@ module SetupIntegrationModels
     @story3 = StoryCard.create(project_id: @project2.id, number: '002', title: 'Its a small world', description: 'after all', estimate: 4)
   end
 
-  def post_headers
-    return {'CONTENT_TYPE' => 'application/json'}
+  def json_header
+    return {'Content-Type' => 'application/json'}
   end
 
   private
