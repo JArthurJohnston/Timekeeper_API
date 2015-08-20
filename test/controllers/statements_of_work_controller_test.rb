@@ -10,7 +10,7 @@ class StatementsOfWorkControllerTest < ActionController::TestCase
   end
 
   test 'permitted parameters' do
-    assert_equal [:number, :purchase_order_number, :client, :nickname], @controller.permitted_parameters
+    assert_equal [:number, :purchase_order_number, :client], @controller.permitted_parameters
   end
 
   test 'required parameter' do

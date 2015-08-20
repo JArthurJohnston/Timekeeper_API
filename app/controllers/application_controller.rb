@@ -23,7 +23,7 @@ class ApplicationController < ActionController::Base
 
   def update
     @model = find_model(params)
-    @model.update_attributes(model_parameters)
+    @model.update(model_parameters)
     render json: @model
   end
 

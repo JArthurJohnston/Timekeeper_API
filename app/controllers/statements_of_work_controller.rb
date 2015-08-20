@@ -5,7 +5,7 @@ class StatementsOfWorkController < ApplicationController
   end
 
   def permitted_parameters
-    return :number, :purchase_order_number, :client, :user_id
+    return :number, :purchase_order_number, :client
   end
 
   def required_parameter
