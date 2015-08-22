@@ -13,7 +13,7 @@ class CreateTestsTest < ActionDispatch::IntegrationTest
 
   #/users/:user_id/statements_of_work
   test 'create SOW' do
-    new_sow_json = '{"number":"222", "purchase_order_number":"345", "client":"Harold"}'
+    new_sow_json = '{"user_id":1, "number":"222", "purchase_order_number":"345", "client":"Harold"}'
 
     assert_nil StatementOfWork.find_by(user_id: @user1.id, number: "222", purchase_order_number: "345", client: "Harold")
     assert_equal 3, StatementOfWork.all.size
@@ -27,6 +27,11 @@ class CreateTestsTest < ActionDispatch::IntegrationTest
 
   #/users/:user_id/timesheets/:timesheet_id/activities
   test 'create activities' do
+    new_activity_json = '{"start_time":"2015-08-22T00:42:13.847Z", "end_time":"2015-08-22T00:42:13.847Z", "timesheet_id":' + @timesheet1.id.to_s + ', "story_card_id":' + @story1.id.to_s + '}'
+
+    post '/users/1/timesheets/1/activities', new_activity_json, json_header
+
+    assert_response :success
 
   end
 

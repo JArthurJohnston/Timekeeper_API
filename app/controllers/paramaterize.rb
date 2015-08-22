@@ -9,7 +9,11 @@ module Paramaterize
   end
 
   def model_parameters
-    return params.require(required_parameter).permit(permitted_parameters)
+    return using_parameters(permitted_parameters)
+  end
+
+  def using_parameters param_symbols
+    return params.require(required_parameter).permit(param_symbols)
   end
 
 end

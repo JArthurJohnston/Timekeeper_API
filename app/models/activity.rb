@@ -73,9 +73,10 @@ class Activity < ActiveRecord::Base
 
   private
 
-    def if_not_nil_round attributes, aSymbol
-      unless attributes[aSymbol].nil?
-        attributes[aSymbol] = attributes[aSymbol].rounded_to_fifteen_min
+    def if_not_nil_round attributes, time_symbol
+      unless attributes[time_symbol].nil?
+        time_from_client = DateTime.parse(attributes[time_symbol])
+        attributes[time_symbol] = time_from_client.rounded_to_fifteen_min
       end
     end
 

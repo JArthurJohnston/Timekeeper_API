@@ -16,4 +16,8 @@ class StatementsOfWorkControllerTest < ActionController::TestCase
   test 'required parameter' do
     assert_equal :statement_of_work, @controller.required_parameter
   end
+
+  test 'create parameters' do
+    assert_equal [:number, :purchase_order_number, :client, :user_id], @controller.create_parameters
+  end
 end

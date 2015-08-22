@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
   end
 
   def create
-    @new_model = model_class.create(model_parameters)
+    @new_model = model_class.create(using_parameters(create_parameters))
     render json: @new_model
   end
 
@@ -35,6 +35,10 @@ class ApplicationController < ActionController::Base
   private
 
     def model_class
+      raise 'subclass responsibility'
+    end
+
+    def create_parameters
       raise 'subclass responsibility'
     end
 
