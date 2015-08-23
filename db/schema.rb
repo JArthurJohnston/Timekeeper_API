@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150815193002) do
+ActiveRecord::Schema.define(version: 20150823014228) do
 
   create_table "activities", force: :cascade do |t|
     t.datetime "start_time"
@@ -35,7 +35,7 @@ ActiveRecord::Schema.define(version: 20150815193002) do
   end
 
   create_table "story_cards", force: :cascade do |t|
-    t.string  "project_id",  limit: 255
+    t.integer "project_id",  limit: 255
     t.string  "number",      limit: 255
     t.string  "title",       limit: 255
     t.string  "description", limit: 255

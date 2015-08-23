@@ -27,11 +27,63 @@ class CreateTestsTest < ActionDispatch::IntegrationTest
 
   #/users/:user_id/timesheets/:timesheet_id/activities
   test 'create activities' do
-    new_activity_json = '{"start_time":"2015-08-22T00:42:13.847Z", "end_time":"2015-08-22T00:42:13.847Z", "timesheet_id":' + @timesheet1.id.to_s + ', "story_card_id":' + @story1.id.to_s + '}'
+    new_activity_json = '{"start_time":"Sun, 23 Aug 2015 00:46:13 GMT",
+"end_time":"Mon, 24 Aug 2015 00:54:13 GMT",
+"user_id":' +@user1.id.to_s+ ',
+"timesheet_id":' + @timesheet1.id.to_s + ',
+"story_card_id":' + @story1.id.to_s + '}'
+
+    assert_equal 3, @timesheet1.activities.size
 
     post '/users/1/timesheets/1/activities', new_activity_json, json_header
 
     assert_response :success
+    assert_equal 4, @timesheet1.activities.size
+
+    expected_start_date = DateTime.new(2015,8,23,0,45,0, '+0')
+    expected_end_date = DateTime.new(2015,8,24,1,0,0, '+0')
+    new_activity = @timesheet1.activities.last
+
+    assert_equal new_activity.start_time, expected_start_date
+    assert_equal new_activity.end_time, expected_end_date
+    assert_equal @story1.id, new_activity.story_card_id
+    assert_equal @timesheet1.id, new_activity.timesheet_id
+    assert_equal @user1.id, new_activity.user_id
+  end
+
+  test 'create projects' do
+    new_project_json = '{"name":"Awesome Sauce", "statement_of_work_id": ' +@sow1.id.to_s+ '}'
+    assert_equal 3, Project.all.size
+
+    post '/projects', new_project_json, json_header
+
+    assert_equal 4, Project.all.size
+
+    assert_equal 'Awesome Sauce', Project.all.last.name
+  end
+
+  test 'create story card' do
+    new_story_json = '{"project_id":' + @project1.id.to_s + ',
+"number":"666",
+"title":"The sign of the beast",
+"description":"Prepare for the comming of the anti-christ",
+"estimate":16 }'
+
+    assert_equal 3, StoryCard.all.size
+
+    post '/projects/1/story_cards', new_story_json, json_header
+
+    assert_equal 4, StoryCard.all.size
+
+    new_story = StoryCard.all.last
+    assert_equal '666', new_story.number
+    assert_equal 'The sign of the beast', new_story.title
+    assert_equal 'Prepare for the comming of the anti-christ', new_story.description
+    assert_equal 16, new_story.estimate
+    assert_equal @project1.id, new_story.project_id
+  end
+
+  test 'create timesheet' do
 
   end
 
