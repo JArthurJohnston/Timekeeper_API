@@ -73,26 +73,10 @@ class Activity < ActiveRecord::Base
 
   private
 
-    def round_time_attributes attributes
-      original_start_time = attributes[:start_time]
-      original_end_time = attributes[:end_time]
-      attributes.delete(:start_time)
-      attributes.delete(:end_time)
-
-    end
-
     def if_not_nil_round attributes_passed_in, time_method_symbol
       unless attributes_passed_in[time_method_symbol].nil?
         parsed_date = date_from_attribute(attributes_passed_in[time_method_symbol]).rounded_to_fifteen_min
         attributes_passed_in[time_method_symbol] = parsed_date
-      end
-    end
-
-    def date_from_attribute attribute
-      if(attribute.kind_of?(String))
-        return DateTime.parse(attribute)
-      else
-        return attribute
       end
     end
 

@@ -24,4 +24,12 @@ module DateTimeHelper
     return a_date + nextFriday
   end
 
+  def date_from_attribute attribute
+    if(attribute.kind_of?(String))
+      return DateTime.parse(attribute)
+    else
+      return attribute
+    end
+  end
+
 end

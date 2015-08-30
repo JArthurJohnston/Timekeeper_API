@@ -28,6 +28,12 @@ class Timesheet < ActiveRecord::Base
     setAttribute :current_activity_id, anActivity.id
   end
 
+  def create attributes
+    attributes[:start_date] = date_from_attribute attributes[:start_date]
+    attributes[:through_date] = date_from_attribute attributes[:through_date]
+    super
+  end
+
   def days
     currentDate = self.start_date.to_datetime.new_offset(0)
     through_date = self.through_date.to_datetime.new_offset(0)
