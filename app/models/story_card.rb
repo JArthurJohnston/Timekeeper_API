@@ -1,6 +1,6 @@
 class StoryCard < ActiveRecord::Base
   belongs_to :project
-  has_many :activities
+  has_many :activities, -> {order(:start_time)}
 
   def billable_hours
     billable_hours = 0.0

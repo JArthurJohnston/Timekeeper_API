@@ -15,6 +15,16 @@ class ProjectTest < ModelTestCase
     assert project.story_cards.include? storyCard2
   end
 
+  test 'story cards are sorted by number' do
+    project = Project.create()
+    storyCard1 = StoryCard.create(number:'001', project_id: project.id)
+    storyCard2 = StoryCard.create(number:'201', project_id: project.id)
+    storyCard3 = StoryCard.create(number:'010', project_id: project.id)
+    storyCard4 = StoryCard.create(number:'ab2', project_id: project.id)
+
+    assert_equal [storyCard1, storyCard3, storyCard2, storyCard4], project.story_cards
+  end
+
   test 'project fields' do
     expected_sow_number = 'GT123'
     expected_PO_number = 'HY345'

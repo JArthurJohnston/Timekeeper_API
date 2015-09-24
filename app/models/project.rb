@@ -1,5 +1,5 @@
 class Project < ActiveRecord::Base
-  has_many :story_cards
+  has_many :story_cards, -> {order(:number)}
   belongs_to :statement_of_work
 
   def purchase_order_number

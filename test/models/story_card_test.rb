@@ -37,6 +37,14 @@ class StoryCardTest < ModelTestCase
     assert @storyCard.activities.include? newActivity3
   end
 
+  test 'story card activities are sorted by start_time' do
+    act1 = Activity.create(story_card_id: @storyCard.id, start_time: time_on(5, 45))
+    act2 = Activity.create(story_card_id: @storyCard.id, start_time: time_on(4, 15))
+    act3 = Activity.create(story_card_id: @storyCard.id, start_time: DateTime.new(2015, 2, 2, 1, 15, 0))
+
+    assert_equal [act2, act1, act3], @storyCard.activities
+  end
+
   test 'billable hours on card' do
     @storyCard.save
     activity1 = Activity.create(start_time: time_on(5, 45), end_time: time_on(7, 30), story_card_id: @storyCard.id)

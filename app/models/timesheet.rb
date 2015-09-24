@@ -7,7 +7,7 @@ class Timesheet < ActiveRecord::Base
           CurrentActivity
   extend DateTimeHelper
 
-  has_many :activities, -> { order('start_time ASC') }
+  has_many :activities, -> { order(:start_time) }
   belongs_to :user
 
   class << self

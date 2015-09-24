@@ -11,6 +11,7 @@ class TimesheetDay
      return activities.select { |e|
        daysAreTheSame e.start_time.to_datetime.new_offset(0), @date.to_datetime.new_offset(0)
      }
+  #   This could definitely be done better in sql
   end
 
   def daysAreTheSame aDate, anotherDate

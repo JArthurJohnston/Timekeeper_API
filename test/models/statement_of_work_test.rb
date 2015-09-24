@@ -16,6 +16,17 @@ class StatementOfWorkTest < ActiveSupport::TestCase
     assert sow_projects.include?(project2)
   end
 
+  test 'sow projects are sorted by name' do
+    sow = StatementOfWork.create
+
+    project1 = Project.create(name: 'Zeroth project is third', statement_of_work_id: sow.id)
+    project2 = Project.create(name: 'Alpha project is second', statement_of_work_id: sow.id)
+    project3 = Project.create(name: 'alpha (lowercase) project is last', statement_of_work_id: sow.id)
+    project4 = Project.create(name: '0th project is first', statement_of_work_id: sow.id)
+
+    assert_equal [project4, project2, project1, project3], sow.projects
+  end
+
   test 'sow fields' do
     user = User.create
     sow_number = 'SOW03'
