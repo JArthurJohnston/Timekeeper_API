@@ -1,15 +1,6 @@
-require 'test_helper'
-require_relative 'setup_integration_models'
+require_relative 'integration_test_case'
 
-class IndexTestsTest < ActionDispatch::IntegrationTest
-  include SetupIntegrationModels
-  # test "the truth" do
-  #   assert true
-  # end
-
-  def setup
-    setup_models
-  end
+class IndexTestsTest < IntegrationTestCase
 
   #/users
   test 'User Index' do
@@ -44,7 +35,7 @@ class IndexTestsTest < ActionDispatch::IntegrationTest
   test 'activities index' do
     get '/users/' + @user1.id.to_s + '/timesheets/' + @timesheet1.id.to_s + '/activities'
     assert_response :success
-    assert_equal [@t1_act1, @t1_act2, @t1_act3].to_json, @response.body
+    assert_equal [@t1_act1, @t1_act3, @t1_act2].to_json, @response.body
 
     get '/users/' + @user1.id.to_s + '/timesheets/' + @timesheet2.id.to_s + '/activities'
     assert_response :success

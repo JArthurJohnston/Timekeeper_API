@@ -8,4 +8,8 @@ class UsersController < ApplicationController
     return :name
   end
 
+  def create_parameters
+    return permitted_parameters
+  end
+
 end

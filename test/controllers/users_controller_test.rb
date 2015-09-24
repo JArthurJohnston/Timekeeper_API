@@ -3,7 +3,7 @@ require 'test_helper'
 class UsersControllerTest < ActionController::TestCase
 
   test 'create user' do
-    post :create, :user => '{"name": "John Smith"}'
+    post :create, :user => {name: "John Smith"}
     assert_response :success
 
     created_user = User.find_by(name: 'John Smith')
@@ -15,7 +15,7 @@ class UsersControllerTest < ActionController::TestCase
   test 'update user' do
     user = User.create(name: 'Kyle Raynor')
 
-    post :update, :id => user.id, :user => '{"name": "Alan Scott"}'
+    post :update, :id => user.id, :user => {name: "Alan Scott"}
 
     assert_response :success
     assert_equal 'Alan Scott', User.find(user.id).name
@@ -48,6 +48,10 @@ class UsersControllerTest < ActionController::TestCase
 
     assert_response :success
     assert_equal [user1, user2].to_json, @response.body
+  end
+
+  test 'create parameters' do
+    assert_equal :name, @controller.create_parameters
   end
 
 end

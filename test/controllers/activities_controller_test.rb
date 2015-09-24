@@ -4,7 +4,7 @@ class ActivitiesControllerTest < ActionController::TestCase
 
   test 'index responds with list of Activities' do
     user = User.create
-    timesheet = Timesheet.create
+    timesheet = Timesheet.create(user_id: user.id)
     act1 = Activity.create(user_id: user.id, timesheet_id: timesheet.id)
     act2 = Activity.create(user_id: user.id, timesheet_id: timesheet.id)
     Activity.create(user_id: user.id, timesheet_id: 456)
@@ -15,10 +15,10 @@ class ActivitiesControllerTest < ActionController::TestCase
     assert_response :success
     assert_equal [act1, act2].to_json, @response.body
 
-    get(:index, {'user_id' => 654654, 'timesheet_id' => timesheet.id})
+    get(:index, {'user_id' => user.id, 'timesheet_id' => timesheet.id})
 
     assert_response :success
-    assert_equal [].to_json, @response.body
+    assert_equal [act1, act2].to_json, @response.body
   end
 
   test 'show activity' do

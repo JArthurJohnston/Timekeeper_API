@@ -10,7 +10,7 @@ class TimesheetsControllerTest < ActionController::TestCase
   end
 
   test 'permitted parameters' do
-    assert_equal [:start_Date, :through_date, :current_activity_id], @controller.permitted_parameters
+    assert_equal [:start_date, :through_date, :current_activity_id, :user_id], @controller.permitted_parameters
   end
 
 end
