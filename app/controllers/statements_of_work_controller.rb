@@ -16,4 +16,8 @@ class StatementsOfWorkController < ApplicationController
     return permitted_parameters.push(:user_id)
   end
 
+  def find_all
+    return find_by_user
+  end
+
 end

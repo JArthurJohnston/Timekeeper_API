@@ -9,9 +9,9 @@ module SetupIntegrationModels
     setup_second_timesheet_and_activities
     @timesheet3 = Timesheet.create(start_date: DateTime.new(2015, 1,1), user_id: @user2.id)
 
-    @sow1 = StatementOfWork.create(user_id: @user1, number: 'SOW013', purchase_order_number: 'A123', client: 'Mickey')
-    @sow2 = StatementOfWork.create(user_id: @user1, number: 'SOW014', purchase_order_number: 'B456', client: 'Donald')
-    @sow3 = StatementOfWork.create(user_id: @user2, number: 'SOW001', purchase_order_number: 'C789', client: 'Goofy')
+    @sow1 = StatementOfWork.create(user_id: @user1.id, number: 'SOW013', purchase_order_number: 'A123', client: 'Mickey')
+    @sow2 = StatementOfWork.create(user_id: @user1.id, number: 'SOW014', purchase_order_number: 'B456', client: 'Donald')
+    @sow3 = StatementOfWork.create(user_id: @user2.id, number: 'SOW001', purchase_order_number: 'C789', client: 'Goofy')
 
     @project1 = Project.create(name: 'Disneyland', statement_of_work_id: @sow1.id)
     @project2 = Project.create(name: 'Disneyworld', statement_of_work_id: @sow2.id)

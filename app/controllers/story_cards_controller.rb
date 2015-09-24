@@ -16,7 +16,7 @@ class StoryCardsController < ApplicationController
     return permitted_parameters
   end
 
-  def find_all params
+  def find_all
     return StoryCard.where(project_id: params[:project_id])
   end
 end

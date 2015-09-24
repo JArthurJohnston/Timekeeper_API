@@ -4,8 +4,8 @@ class TimesheetsController < ApplicationController
   include DateTimeHelper
 
   def create
-    params[:start_date] = date_from_attribute params[:start_date]
-    params[:through_date] = date_from_attribute params[:through_date]
+    cache_params
+    parse_parameter_dates :start_date, :through_date
     super
   end
 
@@ -14,15 +14,15 @@ class TimesheetsController < ApplicationController
   end
 
   def permitted_parameters
-    return :start_Date, :through_date, :current_activity_id
+    return :start_date, :through_date, :current_activity_id, :user_id
   end
 
   def create_parameters
     return permitted_parameters
   end
 
-  def find_all params
-    return find_by_user params
+  def find_all
+    return find_by_user
   end
 
 end

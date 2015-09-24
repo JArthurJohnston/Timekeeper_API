@@ -4,8 +4,9 @@ class ActivitiesController < ApplicationController
     return Activity
   end
 
-  def find_all params
-    return Activity.where(timesheet_id: params[:timesheet_id], user_id: params[:user_id])
+  def find_all
+    timesheet = Timesheet.find_by_user_id params[:user_id]
+    return Activity.where(timesheet_id: timesheet.id)
   end
 
   def create_parameters
