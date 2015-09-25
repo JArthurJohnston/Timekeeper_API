@@ -27,8 +27,11 @@ class CreateTestsTest < ActionDispatch::IntegrationTest
 
   #/users/:user_id/timesheets/:timesheet_id/activities
   test 'create activities' do
-    new_activity_json = '{"start_time":"Sun, 23 Aug 2015 00:46:13 GMT",
-"end_time":"Mon, 24 Aug 2015 00:54:13 GMT",
+    expected_start_date = 'Sun, 23 Aug 2019 00:46:13 GMT'
+    expected_end_date = 'Mon, 24 Aug 2019 00:54:13 GMT'
+
+    new_activity_json = '{"start_time": "'+expected_start_date+'",
+"end_time":"'+expected_end_date+'",
 "user_id":' +@user1.id.to_s+ ',
 "timesheet_id":' + @timesheet1.id.to_s + ',
 "story_card_id":' + @story1.id.to_s + '}'
@@ -40,8 +43,8 @@ class CreateTestsTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_equal 4, @timesheet1.activities.size
 
-    expected_start_date = DateTime.new(2015,8,23,0,45,0, '+0')
-    expected_end_date = DateTime.new(2015,8,24,1,0,0, '+0')
+    expected_start_date = DateTime.parse(expected_start_date).rounded_to_fifteen_min
+    expected_end_date = DateTime.parse(expected_end_date).rounded_to_fifteen_min
     new_activity = @timesheet1.activities.last
 
     assert_equal new_activity.start_time, expected_start_date

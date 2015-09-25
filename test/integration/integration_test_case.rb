@@ -1,5 +1,6 @@
 require 'test_helper'
 require_relative 'setup_integration_models'
+require_relative '../../config/initializers/core_extensions/date_time/time_rounding'
 
 class IntegrationTestCase < ActionDispatch::IntegrationTest
   include SetupIntegrationModels
