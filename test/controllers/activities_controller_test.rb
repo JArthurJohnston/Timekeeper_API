@@ -21,6 +21,26 @@ class ActivitiesControllerTest < ActionController::TestCase
     assert_equal [act1, act2].to_json, @response.body
   end
 
+  test 'create parses start_time and end_time strings correctly' do
+    user = User.create
+    timesheet = Timesheet.create
+    assert_empty Activity.all
+
+    start_time_string = "Thu, 24 Sep 2015 16:36:42 GMT"
+    end_time_string = "Thu, 24 Sep 2015 16:45:00 GMT"
+    post(:create, {user_id: user.id,
+                   timesheet_id: timesheet.id,
+                   activity: {
+                       start_time: start_time_string,
+                       end_time: end_time_string
+                   }
+                })
+    new_activity = Activity.all[0]
+
+    assert_equal DateTime.new(start_time_string), new_activity.start_time
+    assert_equal DateTime.new(end_time_string), new_activity.end_time
+  end
+
   test 'show activity' do
     user = User.create
     act1 = Activity.create(user_id: user.id, timesheet_id: 5)

@@ -17,12 +17,15 @@ module Paramaterize
   end
 
   def parse_parameter_dates *date_symbols
-    # dates_from_strings = []
+    parse_dates_on_params params, date_symbols
+  end
+
+  def parse_dates_on_params params_hash, *date_symbols
     date_symbols.each do
-      |each_symbol|
-      date = DateTime.parse(params[each_symbol])
-      # dates_from_strings.push(each_symbol => date)
-      params[each_symbol]= date
+    |each_symbol|
+      date_string = params_hash[each_symbol]
+      date = DateTime.parse(date_string)
+      params_hash[each_symbol]= date
     end
   end
 

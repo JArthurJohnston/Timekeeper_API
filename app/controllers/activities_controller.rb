@@ -1,5 +1,11 @@
 class ActivitiesController < ApplicationController
 
+  def create
+    cache_params
+    parse_dates_on_params params.require(:activity), :start_time, :end_time
+    super
+  end
+
   def model_class
     return Activity
   end
