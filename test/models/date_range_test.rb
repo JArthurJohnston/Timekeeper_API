@@ -90,8 +90,6 @@ class DateRangeTest < ModelTestCase
     finish = time_on(8, 45)
     start = time_on(5, 45)
     d_range = DateRange.new(start, finish)
-
-
   end
 
 end

@@ -29,8 +29,8 @@ class Timesheet < ActiveRecord::Base
   end
 
   def create attributes
-    attributes[:start_date] = date_from_attribute attributes[:start_date]
-    attributes[:through_date] = date_from_attribute attributes[:through_date]
+    attributes[:start_date] = parse_date_string attributes[:start_date]
+    attributes[:through_date] = parse_date_string attributes[:through_date]
     super
   end
 

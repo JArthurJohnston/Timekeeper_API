@@ -3,9 +3,6 @@ require_relative '../../app/models/modules/date_time_helper'
 class DateRange
   include DateTimeHelper
 
-  MIN_DATE = DateTime.new(1,1,1, 0,0,0)
-  MAX_DATE = DateTime.new(9999,12,31, 0,0,0)
-
   attr_reader :start ,:finish
 
   def initialize(start, finish)

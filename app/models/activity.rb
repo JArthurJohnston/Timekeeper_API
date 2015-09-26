@@ -75,7 +75,7 @@ class Activity < ActiveRecord::Base
 
     def if_not_nil_round attributes_passed_in, time_method_symbol
       unless attributes_passed_in[time_method_symbol].nil?
-        parsed_date = date_from_attribute(attributes_passed_in[time_method_symbol]).rounded_to_fifteen_min
+        parsed_date = parse_date_string(attributes_passed_in[time_method_symbol]).rounded_to_fifteen_min
         attributes_passed_in[time_method_symbol] = parsed_date
       end
     end
