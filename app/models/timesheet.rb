@@ -10,16 +10,6 @@ class Timesheet < ActiveRecord::Base
   has_many :activities, -> { order(:start_time) }
   belongs_to :user
 
-  class << self
-    def new_starting aStartDate
-      return self.new(start_date: aStartDate, through_date: next_friday_from(aStartDate))
-    end
-
-    def create_starting start_date, user_id
-      return self.create(start_date: start_date, through_date: next_friday_from(start_date), user_id: user_id)
-    end
-  end
-
   def add_activity anActivity
     unless self.current_activity_id.nil?
       self.current_activity.set_end_time anActivity.start_time
@@ -66,6 +56,20 @@ class Timesheet < ActiveRecord::Base
       each_activity.destroy
     end
     super
+  end
+
+  def start_date
+    unless activities.empty?
+      return activities.first.start_time
+    end
+    DateTime.new
+  end
+
+  def through_date
+    unless activities.empty?
+      return activities.last.start_time
+    end
+    DateTime.new
   end
 
 end

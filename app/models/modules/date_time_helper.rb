@@ -5,8 +5,9 @@ module DateTimeHelper
 
   def time_in_minutes(a_time)
     unless a_time.nil?
-      dateTime = a_time.to_datetime #active record sometimes pulls dates out of the
-      #db as TimeWithZone objects, which dont respond to :minute
+      dateTime = a_time.to_datetime
+        #active record sometimes pulls dates out of the
+        #db as TimeWithZone objects, which dont respond to :minute
       return (dateTime.hour * 60) + dateTime.minute
     end
     return 0

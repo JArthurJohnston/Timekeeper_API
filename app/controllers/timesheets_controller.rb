@@ -8,7 +8,7 @@ class TimesheetsController < ApplicationController
   end
 
   def permitted_parameters
-    return :start_date, :through_date, :current_activity_id, :user_id
+    return :current_activity_id, :user_id
   end
 
   def create_parameters

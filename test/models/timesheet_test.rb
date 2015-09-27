@@ -223,5 +223,22 @@ class TimesheetTest < ModelTestCase
     assert_equal user, timesheet.user
   end
 
+  test 'start and end dates are derived from activities' do
+    timesheet = Timesheet.create()
+    expected_start_date = DateTime.new(2015, 1, 1)
+    expected_end_date = DateTime.new(2015, 1, 7)
+
+    Activity.create(timesheet_id: timesheet.id, start_time: expected_start_date)
+    Activity.create(timesheet_id: timesheet.id, start_time: expected_end_date)
+
+    assert_equal expected_start_date, timesheet.start_date
+    assert_equal expected_end_date, timesheet.through_date
+  end
+
+  test 'start and end dates are today when activities are empty' do
+    timesheet = Timesheet.create()
+    assert_equal DateTime.new, timesheet.start_date
+    assert_equal DateTime.new, timesheet.through_date
+  end
 
 end
