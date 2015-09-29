@@ -65,4 +65,8 @@ class ApplicationController < ActionController::Base
       super
     end
 
+  def cors_set_access_headers
+    headers['Access-Control-Allow-Origin'] = '*'
+  end
+
 end

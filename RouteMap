@@ -1,3 +1,5 @@
+/opt/jruby-9.0.1.0/bin/jruby -e $stdout.sync=true;$stderr.sync=true;load($0=ARGV.shift) /home/arthur/RubymineProjects/Timekeeper_API/bin/rake routes
+NOTE: ActiveRecord 4.2 is not (yet) fully supported by AR-JDBC, please help us finish 4.2 support - check http://bit.ly/jruby-42 for starters
                    Prefix Verb   URI Pattern                                                       Controller#Action
   user_statements_of_work GET    /users/:user_id/statements_of_work(.:format)                      statements_of_work#index
                           POST   /users/:user_id/statements_of_work(.:format)                      statements_of_work#create
@@ -35,3 +37,5 @@ user_timesheet_activities GET    /users/:user_id/timesheets/:timesheet_id/activi
                           PATCH  /projects/:id(.:format)                                           projects#update
                           PUT    /projects/:id(.:format)                                           projects#update
                           DELETE /projects/:id(.:format)                                           projects#destroy
+
+Process finished with exit code 0

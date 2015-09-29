@@ -1,22 +1,39 @@
+<!DOCTYPE html>
 <html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
 <body>
-    <input type="text" id="new-user-name-field"></input>
+    <input type="text" id="new-user-name-field"/>
 	<button onclick="createUserRequest()">Add User</button>
+	<button onclick="createTimesheetRequest()">Add Timesheet</button>
+
 	<script type="text/javascript">
 		function createUserRequest(){
             var userName = document.getElementById("new-user-name-field").value;
             var newUser = {name: userName};
-			xhr = new XMLHttpRequest();
-            
-			xhr.open("POST", "http://localhost:3000/users/", true);
-			xhr.setRequestHeader("Content-type", "application/json");
-            xhr.onreadystatechange = function(){
-                //alert(xhr.status);
-                //alert(xhr.responseText);
-            }
-            
-            xhr.send('user=' + JSON.stringify(newUser));
+			var request = createReuestToUrl("http://localhost:3000/users/");
+
+            request.send('user=' + JSON.stringify(newUser));
 		}
+
+        function createTimesheetRequest(){
+            var newTimesheet = {user_id: 1};
+            var request = createReuestToUrl("http://localhost:3000/users/1/timesheets");
+
+            request.send('timesheet=' + JSON.stringify(newTimesheet));
+        }
+
+        function createReuestToUrl(urlString){
+            var xhr = new XMLHttpRequest();
+
+            xhr.open("POST", urlString, true);
+            xhr.setRequestHeader("Content-type", "application/json");
+            xhr.onreadystatechange = function(){
+            };
+            return xhr;
+        }
 	</script>
 </body>
 </html>

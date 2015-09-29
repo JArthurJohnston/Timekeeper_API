@@ -7,7 +7,7 @@ module SetupIntegrationModels
 
     setup_first_timesheet_and_activities
     setup_second_timesheet_and_activities
-    @timesheet3 = Timesheet.create(start_date: DateTime.new(2015, 1,1), user_id: @user2.id)
+    @timesheet3 = Timesheet.create(user_id: @user2.id)
 
     @sow1 = StatementOfWork.create(user_id: @user1.id, number: 'SOW013', purchase_order_number: 'A123', client: 'Mickey')
     @sow2 = StatementOfWork.create(user_id: @user1.id, number: 'SOW014', purchase_order_number: 'B456', client: 'Donald')
@@ -29,7 +29,7 @@ module SetupIntegrationModels
   private
 
     def setup_first_timesheet_and_activities
-      @timesheet1 = Timesheet.create(start_date: DateTime.new(2015, 1,1), user_id: @user1.id)
+      @timesheet1 = Timesheet.create(user_id: @user1.id)
 
       @t1_act1 = Activity.create(timesheet_id: @timesheet1.id, start_time: DateTime.new(2015,1,1,5,15,0), end_time: DateTime.new(2015,1,1,7,30,0), user_id: @user1.id)
       @t1_act2 = Activity.create(timesheet_id: @timesheet1.id, start_time: DateTime.new(2015,1,1,8,15,0), end_time: DateTime.new(2015,1,1,9,0,0), user_id: @user1.id)
@@ -37,7 +37,7 @@ module SetupIntegrationModels
     end
 
     def setup_second_timesheet_and_activities
-      @timesheet2 = Timesheet.create(start_date: DateTime.new(2015, 1,1), user_id: @user1.id)
+      @timesheet2 = Timesheet.create(user_id: @user1.id)
 
       @t2_act1 = Activity.create(timesheet_id: @timesheet2.id, start_time: DateTime.new(2015,1,3,5,15,0), end_time: DateTime.new(2015,1,3,7,30,0))
       @t2_act2 = Activity.create(timesheet_id: @timesheet2.id, start_time: DateTime.new(2015,1,3,6,45,0), end_time: DateTime.new(2015,1,3,12,0,0))

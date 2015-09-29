@@ -87,24 +87,15 @@ class CreateTestsTest < ActionDispatch::IntegrationTest
   end
 
   test 'create timesheet' do
-    start_date_string = "Sun, 23 Aug 2019 00:46:13 GMT"
-    end_date_string = 'Tue, 25 Aug 2019 00:54:13 GMT'
-
-    new_timesheet_json = '{"start_date":"'+start_date_string+'",
-"through_date":"'+ end_date_string +'",
-"user_id":' + @user1.id.to_s + '}'
+    new_timesheet_json = '{"user_id":' + @user1.id.to_s + '}'
 
     assert_equal 3, Timesheet.all.size
 
     post '/users/1/timesheets', new_timesheet_json, json_header
 
     assert_equal 4, Timesheet.all.size
-    expected_start_date = DateTime.parse(start_date_string)
-    expected_through_date = DateTime.parse(end_date_string)
     actual_timesheet = Timesheet.all.last
 
-    assert_equal expected_start_date, actual_timesheet.start_date
-    assert_equal expected_through_date, actual_timesheet.through_date
     assert_equal @user1.id, actual_timesheet.user_id
   end
 

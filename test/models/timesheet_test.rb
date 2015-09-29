@@ -7,47 +7,6 @@ class TimesheetTest < ModelTestCase
     @timesheet.save
   end
 
-  test 'initializes with given dates' do
-    start_date = DateTime.new(2005, 1, 1)
-    through_date = DateTime.new(2005, 2, 2)
-
-    timesheet = Timesheet.new(start_date: start_date, through_date: through_date)
-
-    assert_equal start_date, timesheet.start_date
-    assert_equal through_date, timesheet.through_date
-  end
-
-  test 'create_starting' do
-    start_date = DateTime.new(2015, 6, 8)
-    expected_end_date = DateTime.new(2015, 6, 12)
-    user = User.create
-
-    timesheet = Timesheet.create_starting start_date, user.id
-
-    assert_equal start_date, timesheet.start_date
-    assert_equal expected_end_date, timesheet.through_date
-    assert_equal user, timesheet.user
-  end
-
-  test 'newStarting starts on given date, ends that friday' do
-    start_date = DateTime.new(2015, 6, 8)
-    expectedEndDate = DateTime.new(2015, 6, 12)
-
-    timesheet = Timesheet.new_starting start_date
-
-    assert_equal start_date, timesheet.start_date
-    assert_equal expectedEndDate, timesheet.through_date
-  end
-
-  test 'newStarting starts and ends on a friday' do
-    expedtedStartAndEnd = DateTime.new(2015, 6, 12)
-
-    timesheet = Timesheet.new_starting expedtedStartAndEnd
-
-    assert_equal expedtedStartAndEnd, timesheet.start_date
-    assert_equal expedtedStartAndEnd, timesheet.through_date
-  end
-
   test 'timesheet has activities' do
     timesheet = Timesheet.new
     timesheet.save
@@ -133,10 +92,12 @@ class TimesheetTest < ModelTestCase
   test 'timesheet returns a list of day objects' do
     through_date = DateTime.new(2015, 1, 5)
     start_time = DateTime.new(2015, 1, 1)
-    timesheet = Timesheet.create(start_date: start_time, through_date: through_date)
+    timesheet = Timesheet.create
 
     act1 = Activity.create(timesheet_id: timesheet.id, start_time: start_time)
     act2 = Activity.create(timesheet_id: timesheet.id, start_time: DateTime.new(2015, 1, 3))
+    Activity.create(timesheet_id: timesheet.id, start_time: through_date)
+
 
     actualDays = timesheet.days
     assert_equal 5, actualDays.size
