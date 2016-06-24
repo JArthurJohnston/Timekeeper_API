@@ -250,6 +250,7 @@
     <orderEntry type="library" scope="PROVIDED" name="activerecord-jdbcsqlite3-adapter (v1.3.17, jruby-9.0.1.0-p0) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="activesupport (v4.2.1, jruby-9.0.1.0-p0) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="arel (v6.0.3, jruby-9.0.1.0-p0) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="bcrypt (v3.1.10, jruby-9.0.1.0-p0) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="builder (v3.2.2, jruby-9.0.1.0-p0) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="bundler (v1.10.6, jruby-9.0.1.0-p0) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="coffee-rails (v4.1.0, jruby-9.0.1.0-p0) [gem]" level="application" />
